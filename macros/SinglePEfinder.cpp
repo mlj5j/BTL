@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 
 #include "TSpectrum.h"
 #include "TH1.h"
@@ -44,7 +45,7 @@ void SinglePEfinder(const char* name)
   double* peak;
   peak = new double[Npeaks];
   peak = peakFinder->GetPositionX();
-
+  sort(peak, peak + Npeaks);  
   TCanvas *cQ = new TCanvas("cQ", "Charge", 500, 500);
   gPad->SetLogy();
   hQ->Draw();

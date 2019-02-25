@@ -54,7 +54,10 @@ void Na22_LY(const char* name)
   bool foundlow, foundhigh;
   int lowbin, highbin;
 
-  TFile *fout = new TFile("Na22_LY_output.root", "RECREATE");
+  int file_len = strlen(name);
+  string fileoutname = name;
+  fileoutname.insert(file_len -5, "_output");
+  TFile *fout = new TFile((char *) fileoutname.c_str (), "RECREATE");
   if (fout->IsOpen())
     std::cout << "Output file ready for data" << std::endl;
   TTree *tree = new TTree("tree", "LY data tree");
