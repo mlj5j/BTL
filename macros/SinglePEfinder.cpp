@@ -28,7 +28,12 @@ void SinglePEfinder(const char* name)
 
   //Make histogram(s)
   TH1F *hQ = new TH1F("hQ", "Charge", 100, 0, 300);
+  hQ->GetXaxis()->SetTitle("mV*ns");
+  
   TGraph *gPeaks = new TGraph();
+  gPeaks->GetXaxis()->SetTitle("Peak#");
+  gPeaks->GetYaxis()->SetTitle("mV*ns");
+  
   //Loop through events
   for (int i=0; i<tree->GetEntries(); i++)
     {
