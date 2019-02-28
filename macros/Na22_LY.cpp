@@ -96,8 +96,8 @@ void Na22_LY(const char* name)
       baseline = GetBaseline(chmV[0], time[0], 25, 60);
       sigma = GetStdDev(chmV[0], baseline);
 
-      //for (int n=0; n<1024; n++)
-      //chmV[0][n] -= baseline;
+      for (int n=0; n<1024; n++)
+	chmV[0][n] -= baseline;
       
       hbaseline->Fill(sigma);
       tstartbin = FindLeadingEdge(chmV[0], time[0], 0.1 + baseline);
@@ -112,14 +112,14 @@ void Na22_LY(const char* name)
       for (int j=tstartbin; j<1024; j++)
 	{
 	  //If we haven't tagged a lowbin and the sample is above threshold, then tag this one as the lowbin
-	  if (!foundlow && chmV[0][j] > (threshold - baseline))  //Changed!!!!!!!!!!!!!
+	  if (!foundlow && chmV[0][j] > (threshold))  //Changed!!!!!!!!!!!!!
 	    {
 	      lowbin = j;
 	      foundlow = true;
 	    }
 	  //If we have tagged a lowbin, haven't found the highbin, and the sample is below the negative of the threshold, the tage this one as the highbin.
 	  //Using the negative here is just a way of looking for a switch in polarity.  Maybe changing "-threshold" to zero would make more sense?
-	  if (!foundhigh && foundlow && chmV[0][j] < -(threshold-baseline)) //Changed!!!!!!!!!!!!!!!!
+	  if (!foundhigh && foundlow && chmV[0][j] < -(threshold)) //Changed!!!!!!!!!!!!!!!!
 	    {
 	      highbin = j;
 	      foundhigh = true;
